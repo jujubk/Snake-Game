@@ -11,9 +11,12 @@ FPS = 60
 BG_COLOR = 39, 36, 74           #even darker purple
 BG_GRID_COLOR = 57, 52, 107     #darker purple
 GRID_LINE_COLOR = 144, 134, 255 #light purple
+GRID_BLOCK_SIZE = 16
 
 grid_h, grid_w = 400, 400
 title_h, title_w = 100, 460
+grid_size_x = 25 # 25 x 25 blocks
+grid_size_y = 25
 
 # Create Snake Game Window
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -33,8 +36,9 @@ def draw_grid(start_x, start_y, dist, len, grid_size):
         # draw vertical lines
         pygame.draw.line(window, GRID_LINE_COLOR, (start_x, start_y), (end_x, end_y), 1)
 
-        # draw horizontal lines
 
+        # draw horizontal lines
+        pygame.draw.line(window, "black", (start_x, start_y), ())
         # shift start_x and start_y over by dist
         start_x
 
@@ -77,9 +81,31 @@ def main(window):
             # outline for game grid
             pygame.draw.rect(window, "black", pygame.Rect(30, 130, grid_w, grid_h), 2)
             
-            # first line of the grid
-            pygame.draw.line(window, GRID_LINE_COLOR, (45, 130), (45, 530), 1)
+            # print vertical lines on the grid
+            start_x, start_y = 45, 130
+            end_x, end_y = start_x, start_y+grid_h
 
+            for i in range(grid_size_x-1):
+
+                # print vertical line
+                pygame.draw.line(window, GRID_LINE_COLOR, (start_x, start_y), (end_x, end_y), 1)
+
+                # update start and end values
+                start_x, start_y = start_x+GRID_BLOCK_SIZE, start_y
+                end_x, end_y = start_x, start_y+grid_h
+
+            # print horizontal lines on the grid
+            start_x, start_y = 30, 145
+            end_x, end_y = start_x+grid_h, start_y
+
+            for i in range(grid_size_y-1):
+
+                # print horizontal line
+                pygame.draw.line(window, GRID_LINE_COLOR, (start_x, start_y), (end_x, end_y), 1)
+
+                # update start and end values:
+                start_x, start_y = start_x, start_y+GRID_BLOCK_SIZE
+                end_x, end_y = start_x+grid_h, start_y
 
             # update window
             pygame.display.flip()

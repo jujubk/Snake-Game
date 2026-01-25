@@ -10,13 +10,15 @@ WIDTH, HEIGHT = 460, 560
 FPS = 60
 BG_COLOR = 39, 36, 74           #even darker purple
 BG_GRID_COLOR = 57, 52, 107     #darker purple
-GRID_LINE_COLOR = 144, 134, 255 #light purple
+GRID_LINE_COLOR = 114, 84, 128 #light purple
 GRID_BLOCK_SIZE = 16
 
 grid_h, grid_w = 400, 400
 title_h, title_w = 100, 460
 grid_size_x = 25 # 25 x 25 blocks
 grid_size_y = 25
+game_grid_start_x = 30
+game_grid_start_y = 130
 
 # Create Snake Game Window
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -25,22 +27,32 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Snake Game")
 
 # draws grid on screen
-def draw_grid(start_x, start_y, dist, len, grid_size):
-    pygame.draw.line(window, GRID_LINE_COLOR, (45, 130), (45, 530), 1)
+def draw_grid(start_x, start_y, width, height):
+  
+    # print vertical lines on the grid
+    end_x, end_y = start_x, start_y+grid_h
 
-    for i in grid_size:
+    for i in range(grid_size_x+1):
 
-        # determine end_x, end_y:
-        end_x, end_y = start_x+dist, start_y
-
-        # draw vertical lines
+        # print vertical line
         pygame.draw.line(window, GRID_LINE_COLOR, (start_x, start_y), (end_x, end_y), 1)
 
+        # update start and end values
+        start_x, start_y = start_x+GRID_BLOCK_SIZE, start_y
+        end_x, end_y = start_x, start_y+grid_h
 
-        # draw horizontal lines
-        pygame.draw.line(window, "black", (start_x, start_y), ())
-        # shift start_x and start_y over by dist
-        start_x
+    # print horizontal lines on the grid
+    start_x, start_y = 30, 130
+    end_x, end_y = start_x+grid_h, start_y
+
+    for i in range(grid_size_y+1):
+
+        # print horizontal line
+        pygame.draw.line(window, GRID_LINE_COLOR, (start_x, start_y), (end_x, end_y), 1)
+
+        # update start and end values:
+        start_x, start_y = start_x, start_y+GRID_BLOCK_SIZE
+        end_x, end_y = start_x+grid_h, start_y   
 
 # MAIN FUNCTION
     # pass 
@@ -71,42 +83,21 @@ def main(window):
             # set window bg color
             window.fill(BG_COLOR)
 
+
             # background for game title
             pygame.draw.rect(window, BG_GRID_COLOR, pygame.Rect(0,0, title_w, title_h), 0)
-            # outline for game title
-            pygame.draw.rect(window, "black", pygame.Rect(0,0, title_w, title_h), 2)
-            
             # background for game grid
             pygame.draw.rect(window, BG_GRID_COLOR,pygame.Rect(30, 130, grid_w, grid_h), 0)
-            # outline for game grid
-            pygame.draw.rect(window, "black", pygame.Rect(30, 130, grid_w, grid_h), 2)
             
-            # print vertical lines on the grid
-            start_x, start_y = 45, 130
-            end_x, end_y = start_x, start_y+grid_h
+            # draw the grid on game block
+            draw_grid(30, 130, grid_size_x, grid_size_y)
 
-            for i in range(grid_size_x-1):
-
-                # print vertical line
-                pygame.draw.line(window, GRID_LINE_COLOR, (start_x, start_y), (end_x, end_y), 1)
-
-                # update start and end values
-                start_x, start_y = start_x+GRID_BLOCK_SIZE, start_y
-                end_x, end_y = start_x, start_y+grid_h
-
-            # print horizontal lines on the grid
-            start_x, start_y = 30, 145
-            end_x, end_y = start_x+grid_h, start_y
-
-            for i in range(grid_size_y-1):
-
-                # print horizontal line
-                pygame.draw.line(window, GRID_LINE_COLOR, (start_x, start_y), (end_x, end_y), 1)
-
-                # update start and end values:
-                start_x, start_y = start_x, start_y+GRID_BLOCK_SIZE
-                end_x, end_y = start_x+grid_h, start_y
-
+            # outline for game title
+            pygame.draw.rect(window, "white", pygame.Rect(0,0, title_w, title_h), 2)
+            # outline for game grid
+            pygame.draw.rect(window, "white", pygame.Rect(30, 130, grid_w, grid_h), 2)
+            
+          
             # update window
             pygame.display.flip()
 

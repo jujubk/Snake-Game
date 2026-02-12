@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 
 WIDTH, HEIGHT = 460, 560
 
-# COLORS:
+# COLORS 
 BG_COLOR = 39, 36, 74           # dark purple
 BG_GRID_COLOR = 57, 52, 107     # lighter purple
 GRID_LINE_COLOR = 114, 84, 128  # even lighter purple
@@ -26,6 +26,13 @@ TITLE_H, TITLE_W = 100, 460
 FPS = 1
 
 SNAKE_VEL = GRID_BLOCK_SIZE
+
+# FONTS & TEXTS
+font = pygame.font.Font('freesansbold.ttf', 32)
+title_text = font.render('Hungry Snake', True, "green", BG_GRID_COLOR)
+titleRect = title_text.get_rect()
+titleRect.center = (TITLE_W // 2,TITLE_H // 2)
+
 
 # OTHER 
 GRID_BLOCK_PXL_SIZE = 25 # 25 x 25 blocks
@@ -156,7 +163,6 @@ def main(window):
                 # break out of main loop
                 break
 
-
         # set window bg color
         window.fill(BG_COLOR)
 
@@ -173,6 +179,9 @@ def main(window):
         # outline for game grid
         pygame.draw.rect(window, "white", pygame.Rect(30, 130, GRID_W, GRID_H), 2)
         
+        # write title text on window
+        window.blit(title_text, titleRect)
+
         # update dot position on game grid
         update_dot(x_list, y_list)
 

@@ -134,10 +134,36 @@ def update_dot(x_list, y_list):
     # draw the dot on the window
     pygame.draw.ellipse(window, DOT_COLOR, dot, GRID_BLOCK_SIZE)
 
+# (re)draws the grid section of the window (yes, i know its hard-coded in...)
+def update_grid():
+    # background for game grid
+    pygame.draw.rect(window, BG_GRID_COLOR,pygame.Rect(30, 130, GRID_W, GRID_H), 0)
+    # draw the grid on game block
+    draw_grid(30, 130)
+    # outline for game grid
+    pygame.draw.rect(window, "white", pygame.Rect(30, 130, GRID_W, GRID_H), 2)
+
+
+# (re)draws title section of the window 
+def update_title():
+    # background for game title
+    pygame.draw.rect(window, BG_GRID_COLOR, pygame.Rect(0,0, TITLE_W, TITLE_H), 0)
+    # outline for game title
+    pygame.draw.rect(window, "white", pygame.Rect(0,0, TITLE_W, TITLE_H), 2)   
+    # write title text on window
+    window.blit(title_text, titleRect)
+
+
 # MAIN FUNCTION
     #  
 def main(window):
-    
+
+    # set window bg color
+    window.fill(BG_COLOR)
+
+    # draw the title section on the window
+    update_title()
+
     # flag for the main game loop
     run = True
 
@@ -164,26 +190,9 @@ def main(window):
                 # break out of main loop
                 break
             
-            
-        # set window bg color
-        window.fill(BG_COLOR)
-
-        # background for game title
-        pygame.draw.rect(window, BG_GRID_COLOR, pygame.Rect(0,0, TITLE_W, TITLE_H), 0)
-        # background for game grid
-        pygame.draw.rect(window, BG_GRID_COLOR,pygame.Rect(30, 130, GRID_W, GRID_H), 0)
+        # draw grid on the screen
+        update_grid()
         
-        # draw the grid on game block
-        draw_grid(30, 130)
-
-        # outline for game title
-        pygame.draw.rect(window, "white", pygame.Rect(0,0, TITLE_W, TITLE_H), 2)
-        # outline for game grid
-        pygame.draw.rect(window, "white", pygame.Rect(30, 130, GRID_W, GRID_H), 2)
-        
-        # write title text on window
-        window.blit(title_text, titleRect)
-
         # KEYBOARD EVENTS:
         # player = snake.Snake(SNAKE_VEL, snake_start_x, snake_start_y, SNAKE_SIZE, SNAKE_SIZE, SNAKE_COLOR)
         # player.update(window)

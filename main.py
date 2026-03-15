@@ -1,7 +1,7 @@
 import pygame
 import random
-import Snake
-from Dot import Dot
+import snake
+import object
 
 # Pygame setup
 pygame.init()
@@ -16,7 +16,7 @@ BG_COLOR = 39, 36, 74           # dark purple
 BG_GRID_COLOR = 57, 52, 107     # lighter purple
 GRID_LINE_COLOR = 114, 84, 128  # even lighter purple
 DOT_COLOR = "white"
-SNAKE_COLOR = None              # TBD
+SNAKE_COLOR = "green"              # TBD
 
 # OTHER SIZES & VELOCITIES
 GRID_BLOCK_SIZE = 16
@@ -40,6 +40,7 @@ grid_size_y = 25
 game_grid_start_x = 30
 game_grid_start_y = 130
 snake_start_x, snake_start_y = 222, 338
+SNAKE_SIZE = GRID_BLOCK_SIZE
 
 # initialize the dot pygame rect
 global dot
@@ -134,7 +135,7 @@ def update_dot(x_list, y_list):
     pygame.draw.ellipse(window, DOT_COLOR, dot, GRID_BLOCK_SIZE)
 
 # MAIN FUNCTION
-    # pass 
+    #  
 def main(window):
     
     # flag for the main game loop
@@ -162,7 +163,8 @@ def main(window):
                 run = False
                 # break out of main loop
                 break
-
+            
+            
         # set window bg color
         window.fill(BG_COLOR)
 
@@ -182,11 +184,43 @@ def main(window):
         # write title text on window
         window.blit(title_text, titleRect)
 
-        # update dot position on game grid
-        update_dot(x_list, y_list)
+        # KEYBOARD EVENTS:
+        # player = snake.Snake(SNAKE_VEL, snake_start_x, snake_start_y, SNAKE_SIZE, SNAKE_SIZE, SNAKE_COLOR)
+        # player.update(window)
 
+        # keys = pygame.key.get_pressed()J
+
+        # if keys[pygame.K_UP]:
+        #     player.move("up")
+        # if keys[pygame.K_DOWN]:
+        #     player.move("down")
+        # if keys[pygame.K_LEFT]:
+        #     player.move("left")
+        # if keys[pygame.K_RIGHT]:
+        #     player.move("right")
+
+        # player.update(window)
+
+
+
+
+
+
+        # update dot position on game grid
+        # update_dot(x_list, y_list)
+
+        # # Snake object testing
+
+        # # put the snake on the window
+        # # player.print_snake_coords()
+
+        # player.move("down", window)
+
+        # player.update(window)
         # update window
         pygame.display.flip()
+
+
 
     # Close the window right after the game loop
         # bc the main loop ONLY ends in the event 

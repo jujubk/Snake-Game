@@ -59,12 +59,23 @@ class Object:
     def print_color(self):
         print("\nColor: ", self.get_color())
     
+    def print_xy(self):
+        print("\n[X,Y]: [", self.x, ", ", self.y, "]")
+
     def print(self):
         self.print_x()
         self.print_y()
         self.print_w()
         self.print_h()
         self.print_color()
+
+# 
+    def update_coords(self,new_x,new_y):
+        self.x = new_x
+        self.y = new_y
+        self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
+
+
 
 # def main():
 #     obj = Object(1,2,3,4,"color")
